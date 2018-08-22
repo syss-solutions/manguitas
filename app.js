@@ -15,9 +15,6 @@ var app = express();
 // 20180822 - Configure app to use bodyParser(). This will let us get the data from a POST.
 var bodyParser = require('body-parser');
 
-// 20180822 - Book Model.
-var Book     = require('./app/model/book');
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
