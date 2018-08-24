@@ -15,6 +15,11 @@ var app = express();
 // 20180822 - Configure app to use bodyParser(). This will let us get the data from a POST.
 var bodyParser = require('body-parser');
 
+// 20180824 - In order to handle PUT and DELETE request, you must use method-override module.
+var methodOverride = require('method-override');
+// Override with the X-HTTP-Method-Override header in the request.
+app.use(methodOverride('X-HTTP-Method-Override'))
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -30,7 +35,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // 20180822 - Connect to our Database
-mongoose.connect('mongodb://127.0.0.1:27017/com-syss-db-manguitas');
+mongoose.connect('mongodb://127.0.0.1:27017/com-syss-db-manguitas', { useNewUrlParser: true });
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
