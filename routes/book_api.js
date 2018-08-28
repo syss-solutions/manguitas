@@ -19,7 +19,7 @@ router.get('/', function(req, res) {
 });
 */
 
-// 20180822 - API Functions
+// 20180822 - Book API Functions
 router.route('/book')
     // get all the books (accessed at GET http://localhost:3000/api/book)
     .get(function(req, res) {
@@ -29,10 +29,15 @@ router.route('/book')
           res.json(book);
       });
     })
-    // create a bear (accessed at POST http://localhost:3000/api/book)
+    // create a book (accessed at POST http://localhost:3000/api/book)
     .post(function(req, res) {
         var book = new Book();      // create a new instance of the Book model
-        book.name = req.body.name;  // set the book name (comes from the request)
+        // 20180828 - Book request updated
+        book.title = req.body.title;  // set the book title (comes from the request)
+        book.author = req.body.author;  // set the book author (comes from the request)
+        book.editorial = req.body.editorial;  // set the book editorial (comes from the request)
+        book.volume_number = req.body.volume_number;  // set the book volume_number (comes from the request)
+        book.id_collection = req.body.id_collection;  // set the book id_collection (comes from the request)
 
         // Save the book and check for errors
         book.save(function(err) {
@@ -42,7 +47,7 @@ router.route('/book')
         });
     });
 
-// 20180822 - On routes that end in /book/:book_id
+// 20180822 - Book API Functions, on routes that end in /book/:book_id
 router.route('/book/:book_id')
     // Get the book with that id (accessed at GET http://localhost:3000/api/book/:book_id)
     .get(function(req, res) {
@@ -59,7 +64,13 @@ router.route('/book/:book_id')
             if (err)
               res.send(err);
 
-            book.name = req.body.name;  // update the book info
+            // 20180828 - Book request updated
+            book.title = req.body.title;  // set the book title (comes from the request)
+            book.author = req.body.author;  // set the book author (comes from the request)
+            book.editorial = req.body.editorial;  // set the book editorial (comes from the request)
+            book.volume_number = req.body.volume_number;  // set the book volume_number (comes from the request)
+            book.id_collection = req.body.id_collection;  // set the book id_collection (comes from the request)
+
             // Save the book
             book.save(function(err) {
               if (err)

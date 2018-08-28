@@ -8,8 +8,10 @@ var mongoose   = require('mongoose');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-// 20180822 - API Router
-var apiRouter = require('./routes/api');
+// 20180822 - Book API Router
+var bookApiRouter = require('./routes/book_api');
+// 20180828 - Collection API Router
+var collectionApiRouter = require('./routes/collection_api');
 
 var app = express();
 // 20180822 - Configure app to use bodyParser(). This will let us get the data from a POST.
@@ -40,7 +42,10 @@ mongoose.connect('mongodb://127.0.0.1:27017/com-syss-db-manguitas', { useNewUrlP
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 // 20180822 - REGISTER OUR ROUTES. All of our routes will be prefixed with /api
-app.use('/api', apiRouter);
+// 20180822 - BOOK API ROUTES.
+app.use('/api', bookApiRouter);
+// 20180828 - COLLECTION API ROUTES.
+app.use('/api', collectionApiRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
