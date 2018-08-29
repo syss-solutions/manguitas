@@ -2,7 +2,10 @@
 Books and Comics Collection Manager Node.js / Express application.
 
 # TODO
-- Delete/update index.js and users.js.
+- Update error.jade.
+- Password encrypt.
+- Review NoSQL Design.
+- Put more logs. ¿Log framework?
 - Make Deploy file with DOCKER.
 
 # Another Tasks

@@ -6,8 +6,10 @@ var logger = require('morgan');
 // 20180822 - Mongoose
 var mongoose   = require('mongoose');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+// 20180829 - index.js access deleted.
+// var indexRouter = require('./routes/index');
+// 20180829 - Updating users.js into Users WS API.
+var usersRouter = require('./routes/users_api');
 // 20180822 - Book API Router
 var bookApiRouter = require('./routes/book_api');
 // 20180828 - Collection API Router
@@ -39,8 +41,10 @@ app.use(bodyParser.json());
 // 20180822 - Connect to our Database
 mongoose.connect('mongodb://127.0.0.1:27017/com-syss-db-manguitas', { useNewUrlParser: true });
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+// 20180829 - index.js access deleted.
+// app.use('/', indexRouter);
+// 20180829 - Updating users.js into Users WS API.
+app.use('/api', usersRouter);
 // 20180822 - REGISTER OUR ROUTES. All of our routes will be prefixed with /api
 // 20180822 - BOOK API ROUTES.
 app.use('/api', bookApiRouter);

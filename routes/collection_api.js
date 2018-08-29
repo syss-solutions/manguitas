@@ -6,7 +6,7 @@ var Collection     = require('../app/model/collection');
 
 // 20180828 - We've to define a middleware to use for all requests.
 router.use(function(req, res, next) {
-  // console.log('Book API access...');
+  // console.log('Collection API access...');
   next(); // Make sure we go to the next routes and don't stop here
 });
 
