@@ -39,7 +39,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // 20180822 - Connect to our Database
-mongoose.connect('mongodb://127.0.0.1:27017/com-syss-db-manguitas', { useNewUrlParser: true });
+// mongoose.connect('mongodb://127.0.0.1:27017/com-syss-db-manguitas', { useNewUrlParser: true });
+// 20180829 - kurtces (becaskurtces@gmail.com) MLab (https://mlab.com/) MongoDB Connection
+mongoose.connect('mongodb://kurtces:Dl21grmT@ds022228.mlab.com:22228/com-syss-db-manguitas', { useNewUrlParser: true });
 
 // 20180829 - index.js access deleted.
 // app.use('/', indexRouter);
