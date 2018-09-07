@@ -4,9 +4,12 @@ var router = express.Router();
 // 20180822 - Book Model.
 var Book     = require('../app/model/book');
 
+// 20180906 - Verification token
+var verifyToken = require('../config/auth/verifyToken');
+
 // 20180822 - We've to define a middleware to use for all requests.
 router.use(function(req, res, next) {
-  // console.log('Book API access...');
+  console.info('Book API access...');
   next(); // Make sure we go to the next routes and don't stop here
 });
 
@@ -22,7 +25,7 @@ router.get('/', function(req, res) {
 // 20180822 - Book API Functions
 router.route('/book')
     // get all the books (accessed at GET http://localhost:3000/api/book)
-    .get(function(req, res) {
+    .get(verifyToken, function(req, res) {
       Book.find(function(err, book) {
           if (err)
               res.send(err);
@@ -30,7 +33,7 @@ router.route('/book')
       });
     })
     // create a book (accessed at POST http://localhost:3000/api/book)
-    .post(function(req, res) {
+    .post(verifyToken, function(req, res) {
         var book = new Book();      // create a new instance of the Book model
         // 20180828 - Book request updated
         book.title = req.body.title;  // set the book title (comes from the request)
@@ -50,7 +53,7 @@ router.route('/book')
 // 20180822 - Book API Functions, on routes that end in /book/:book_id
 router.route('/book/:book_id')
     // Get the book with that id (accessed at GET http://localhost:3000/api/book/:book_id)
-    .get(function(req, res) {
+    .get(verifyToken, function(req, res) {
         Book.findById(req.params.book_id, function(err, book) {
             if (err)
                 res.send(err);
@@ -58,7 +61,7 @@ router.route('/book/:book_id')
         });
     })
     // Update the book with this id (accessed at PUT http://localhost:3000/api/book/:book_id)
-    .put(function(req, res) {
+    .put(verifyToken, function(req, res) {
         // use our book model to find the book we want
         Book.findById(req.params.book_id, function(err, book) {
             if (err)
@@ -80,7 +83,7 @@ router.route('/book/:book_id')
         });
     })
     // Delete the book with this id (accessed at DELETE http://localhost:3000/api/book/:book_id)
-    .delete(function(req, res) {
+    .delete(verifyToken, function(req, res) {
         Book.remove({
             _id: req.params.book_id
         }, function(err, book) {

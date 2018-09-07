@@ -4,9 +4,12 @@ var router = express.Router();
 // 20180828 - Collection Model.
 var Collection     = require('../app/model/collection');
 
+// 20180906 - Verification token
+var verifyToken = require('../config/auth/verifyToken');
+
 // 20180828 - We've to define a middleware to use for all requests.
 router.use(function(req, res, next) {
-  // console.log('Collection API access...');
+  console.info('Collection API access...');
   next(); // Make sure we go to the next routes and don't stop here
 });
 
@@ -22,7 +25,7 @@ router.get('/', function(req, res) {
 // 20180828 - Collection API Functions
 router.route('/collection')
     // get all the collections (accessed at GET http://localhost:3000/api/collection)
-    .get(function(req, res) {
+    .get(verifyToken, function(req, res) {
       Collection.find(function(err, collection) {
           if (err)
               res.send(err);
@@ -30,7 +33,7 @@ router.route('/collection')
       });
     })
     // create a collection (accessed at POST http://localhost:3000/api/collection)
-    .post(function(req, res) {
+    .post(verifyToken, function(req, res) {
         var collection = new Collection();      // create a new instance of the Collection model
         collection.name = req.body.name;  // set the collection name (comes from the request)
         collection.editorial = req.body.editorial;  // set the collection editorial (comes from the request)
@@ -49,7 +52,7 @@ router.route('/collection')
 // 20180828 - Collection API Functions, on routes that end in /collection/:collection_id
 router.route('/collection/:collection_id')
     // Get the Collection with that id (accessed at GET http://localhost:3000/api/collection/:collection_id)
-    .get(function(req, res) {
+    .get(verifyToken, function(req, res) {
         Collection.findById(req.params.collection_id, function(err, collection) {
             if (err)
                 res.send(err);
@@ -57,7 +60,7 @@ router.route('/collection/:collection_id')
         });
     })
     // Update the Collection with this id (accessed at PUT http://localhost:3000/api/collection/:collection_id)
-    .put(function(req, res) {
+    .put(verifyToken, function(req, res) {
         // use our book model to find the book we want
         Collection.findById(req.params.collection_id, function(err, collection) {
             if (err)
@@ -79,7 +82,7 @@ router.route('/collection/:collection_id')
         });
     })
     // Delete the Collection with this id (accessed at DELETE http://localhost:3000/api/collection/:collection_id)
-    .delete(function(req, res) {
+    .delete(verifyToken, function(req, res) {
         Collection.remove({
             _id: req.params.collection_id
         }, function(err, collection) {
