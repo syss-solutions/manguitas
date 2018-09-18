@@ -44,7 +44,7 @@ router.route('/login')
         });
     });
 
-// Logout (accessed at POST http://localhost:3000/api/logout)
+// Logout (accessed at GET http://localhost:3000/api/auth/logout)
 router.route('/logout')
     .get(function(req, res) {
         res.status(200).send({ auth: false, token: null });
